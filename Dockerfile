@@ -1,42 +1,20 @@
-FROM centos:centos6
+FROM perl:5.24
 
-MAINTAINER Masahiro Iuchi <masahiro.iuchi@gmail.com>
+RUN apt-get -y update
+RUN apt-get -y install libgd-dev --no-install-recommends\
+ && apt-get clean\
+ && rm -rf /var/cache/apt/archives/* /var/lib/apt/lists/*
 
-RUN yum clean all
-RUN yum -y update
+WORKDIR /root
+RUN curl -O https://raw.githubusercontent.com/movabletype/movabletype/master/t/cpanfile\
+ &&  perl -i -0pe "s/on 'test' => sub \{.+\};//s" cpanfile
+RUN cpanm -nq App::cpm\
+ && rm -rf .cpanm
+RUN cpm install -g Archive::Zip DBI DBD::SQLite Starlet\
+ && cpm install -g\
+ && rm -rf .perl-cpm
 
-RUN yum -y install httpd
+EXPOSE 3000
+WORKDIR /mt
+CMD ["start_server", "--port=3000", "--", "plackup", "-s", "Starlet", "--max-workers=2", "--pid-file=/pid/mt.pid", "mt.psgi"]
 
-RUN yum -y install mysql mysql-server
-
-#### Perl
-RUN yum -y install perl perl-core
-
-# For installing XSS modules.
-RUN yum -y install gcc
-
-# For installing Net::SSLeay
-RUN yum -y install openssl-devel
-
-# Install GD from RPM.
-RUN yum -y install perl-GD
-
-# Install Image::Magick from RPM.
-RUN yum -y install ImageMagick-perl
-
-# For installing Math::GMP.
-RUN yum -y install gmp-devel
-
-# For installing XML::Parser.
-RUN yum -y install expat-devel
-
-# For installing XML::LibXML.
-RUN yum -y install libxml2-devel
-
-# TODO: should use https.
-RUN curl -L http://cpanmin.us | perl - App::cpanminus
-COPY ./cpanfile /tmp/
-RUN cpanm --installdeps . --cpanfile /tmp/cpanfile
-
-RUN yum clean all
-RUN rm /tmp/cpanfile

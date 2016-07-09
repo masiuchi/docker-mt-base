@@ -1,0 +1,55 @@
+version: '2'
+
+networks:
+  front:
+  back:
+
+services:
+  mt:
+    build: .
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - ./site:/site
+      - ./pid:/pid
+      - ./movabletype:/mt
+    networks:
+      - front
+      - back
+    ports:
+      - 3000:3000
+    depends_on:
+      - mysql
+      - memcached
+
+  apache:
+    image: php:5.5-apache
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - ./site:/var/www
+    networks:
+      - front
+    ports:
+      - 80:80
+    depends_on:
+      - mt
+
+  mysql:
+    image: mysql
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+    environment:
+      MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
+    networks:
+      - back
+    ports:
+      - 3306:3306
+
+  memcached:
+    image: memcached:alpine
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+    networks:
+      - back
+    ports:
+      - 11211:11211
+
