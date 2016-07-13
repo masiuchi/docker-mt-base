@@ -22,10 +22,11 @@ services:
       - memcached
 
   apache:
-    image: php:5.5-apache
+    build: docker/apache
     volumes:
       - /etc/localtime:/etc/localtime:ro
-      - ./site:/var/www
+      - ./movabletype/mt-static:/var/www/mt-static
+      - ./site:/var/www/html
     networks:
       - front
     ports:
