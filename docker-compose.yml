@@ -17,9 +17,6 @@ services:
       - back
     ports:
       - 3000:3000
-    depends_on:
-      - mysql
-      - memcached
 
   apache:
     build: docker/apache
@@ -31,8 +28,15 @@ services:
       - front
     ports:
       - 80:80
-    depends_on:
-      - mt
+
+  nginx:
+    image: nginx:alpine
+    volumes:
+      - /etc/localtime:/etc/localhost:ro
+    networks:
+      - front
+    ports:
+      - 80:80
 
   mysql:
     image: mysql
@@ -44,6 +48,15 @@ services:
       - back
     ports:
       - 3306:3306
+
+  postgres:
+    image: postgres
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+    networks:
+      - back
+    ports:
+      - 5432:5432
 
   memcached:
     image: memcached:alpine
