@@ -29,14 +29,14 @@ services:
     ports:
       - 80:80
 
-  nginx:
-    image: nginx:alpine
-    volumes:
-      - /etc/localtime:/etc/localhost:ro
-    networks:
-      - front
-    ports:
-      - 80:80
+#  nginx:
+#    image: nginx:alpine
+#    volumes:
+#      - /etc/localtime:/etc/localhost:ro
+#    networks:
+#      - front
+#    ports:
+#      - 80:80
 
   mysql:
     image: mysql
@@ -49,14 +49,14 @@ services:
     ports:
       - 3306:3306
 
-  postgres:
-    image: postgres
-    volumes:
-      - /etc/localtime:/etc/localtime:ro
-    networks:
-      - back
-    ports:
-      - 5432:5432
+#  postgres:
+#    image: postgres
+#    volumes:
+#      - /etc/localtime:/etc/localtime:ro
+#    networks:
+#      - back
+#    ports:
+#      - 5432:5432
 
   memcached:
     image: memcached:alpine
