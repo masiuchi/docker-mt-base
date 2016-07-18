@@ -1,7 +1,7 @@
 FROM perl:5.24
 
 RUN apt-get -y update
-RUN apt-get -y install libgd-dev --no-install-recommends\
+RUN apt-get -y install libgd-dev netcat --no-install-recommends\
  && apt-get clean\
  && rm -rf /var/cache/apt/archives/* /var/lib/apt/lists/*
 
@@ -14,7 +14,9 @@ RUN cpm install -g Archive::Zip DBI DBD::SQLite Starlet\
  && cpm install -g\
  && rm -rf .perl-cpm
 
+COPY start.sh /
+
 EXPOSE 3000
 WORKDIR /app/movabletype
-CMD ["start_server", "--port=3000", "--pid-file=/app/run/movabletype.pid", "--", "plackup", "-s", "Starlet", "--max-workers=2", "mt.psgi"]
+CMD ["bash", "/start.sh"]
 
