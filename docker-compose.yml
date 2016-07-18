@@ -19,7 +19,6 @@ services:
       - 3000:3000
     depends_on:
       - mysql
-      - memcached
 
   apache:
     build: docker/apache
@@ -66,12 +65,12 @@ services:
 #    ports:
 #      - 5432:5432
 
-  memcached:
-    image: memcached:alpine
-    volumes:
-      - /etc/localtime:/etc/localtime:ro
-    networks:
-      - back
-    ports:
-      - 11211:11211
+#  memcached:
+#    image: memcached:alpine
+#    volumes:
+#      - /etc/localtime:/etc/localtime:ro
+#    networks:
+#      - back
+#    ports:
+#      - 11211:11211
 
