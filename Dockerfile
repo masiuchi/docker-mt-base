@@ -16,5 +16,5 @@ RUN cpm install -g Archive::Zip DBI DBD::SQLite Starlet\
 
 EXPOSE 3000
 WORKDIR /app/movabletype
-CMD ["start_server", "--port=3000", "--", "plackup", "-s", "Starlet", "--max-workers=2", "--pid-file=/pid/mt.pid", "mt.psgi"]
+CMD ["start_server", "--port=3000", "--pid-file=/app/run/movabletype.pid", "--", "plackup", "-s", "Starlet", "--max-workers=2", "mt.psgi"]
 
