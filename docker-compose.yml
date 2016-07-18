@@ -21,11 +21,13 @@ services:
       - mysql
 
   apache:
-    build: docker/apache
+    image: php:5.5-apache
+    command: bash -c "a2enmod proxy proxy_http && apache2-foreground"
     volumes:
       - /etc/localtime:/etc/localtime:ro
       - ./app/movabletype/mt-static:/var/www/mt-static:ro
       - ./data/file/static:/var/www/html:ro
+      - ./app/initial/etc/apache2/site-enabled:/etc/apache2/sites-enabled:ro
     networks:
       - front
     ports:
