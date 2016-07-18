@@ -1,0 +1,12 @@
+version: "2"
+
+services:
+  apache:
+    build: .
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - ./www/html:/var/www/html
+      - ./www/cgi-bin:/usr/lib/cgi-bin
+    ports:
+      - 80:80
+
