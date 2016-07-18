@@ -1,10 +1,10 @@
 CGIPath        /mt/
 StaticWebPath  /mt-static/
-StaticFilePath /mt/mt-static/
+StaticFilePath /app/movabletype/mt-static/
 
-BaseSitePath   /site
+BaseSitePath   /data/file/static
 
-PIDFilePath    /pid/mt.pid
+PIDFilePath    /app/run/movabletype.pid
 
 ImageDriver    GD
 
@@ -13,7 +13,6 @@ ImageDriver    GD
 
 ObjectDriver   DBI::mysql
 DBHost         mysql
+Database       movabletype
 DBUser         root
-Database       mt
-
 

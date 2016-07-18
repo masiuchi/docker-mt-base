@@ -9,25 +9,30 @@ services:
     build: .
     volumes:
       - /etc/localtime:/etc/localtime:ro
-      - ./site:/site
-      - ./pid:/pid
-      - ./movabletype:/mt
+      - ./app/movabletype:/app/movabletype
+      - ./app/run:/app/run
+      - ./data/file/static:/data/file/static
     networks:
       - front
       - back
     ports:
       - 3000:3000
+    depends_on:
+      - mysql
+      - memcached
 
   apache:
     build: docker/apache
     volumes:
       - /etc/localtime:/etc/localtime:ro
-      - ./movabletype/mt-static:/var/www/mt-static:ro
-      - ./site:/var/www/html:ro
+      - ./app/movabletype/mt-static:/var/www/mt-static:ro
+      - ./data/file/static:/var/www/html:ro
     networks:
       - front
     ports:
       - 80:80
+    depends_on:
+      - mt
 
 #  nginx:
 #    image: nginx:alpine
@@ -44,6 +49,9 @@ services:
       - /etc/localtime:/etc/localtime:ro
     environment:
       MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
+      MYSQL_DATABASE: "movabletype"
+    volumes:
+      - ./data/mysql:/var/lib/mysql
     networks:
       - back
     ports:
