@@ -22,8 +22,8 @@ services:
     build: docker/apache
     volumes:
       - /etc/localtime:/etc/localtime:ro
-      - ./movabletype/mt-static:/var/www/mt-static
-      - ./site:/var/www/html
+      - ./movabletype/mt-static:/var/www/mt-static:ro
+      - ./site:/var/www/html:ro
     networks:
       - front
     ports:
