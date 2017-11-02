@@ -6,7 +6,7 @@ networks:
 
 services:
   mt:
-    build: docker/mt
+    build: .
     volumes:
       - /etc/localtime:/etc/localtime:ro
       - ./app/movabletype:/app/movabletype
