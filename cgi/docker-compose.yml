@@ -1,5 +1,8 @@
 version: "2"
 
+networks:
+  back:
+
 services:
   apache:
     build: .
@@ -9,4 +12,19 @@ services:
       - ./www/cgi-bin:/usr/lib/cgi-bin
     ports:
       - 8080:80
+    networks:
+      - back
+    depends_on:
+      - mysql
+
+  mysql:
+    image: mysql
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - ./data/mysql:/var/lib/mysql
+    environment:
+      MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
+      MYSQL_DATABASE: "movabletype"
+    networks:
+      - back
 
