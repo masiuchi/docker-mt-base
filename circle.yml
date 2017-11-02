@@ -9,5 +9,13 @@ dependencies:
   override:
     - if [[ -e ~/docker/image.tar ]]; then docker load -i ~/docker/image.tar; fi
     - docker info
-    - docker build -t mt .
+
+    - cd psgi
+    - docker build -t mt-psgi .
+    - cd ..
+
+    - cd cgi
+    - docker build -t mt-cgi .
+    - cd ..
+
     - mkdir -p ~/docker; docker save mt > ~/docker/image.tar
