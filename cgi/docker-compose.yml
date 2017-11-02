@@ -8,5 +8,5 @@ services:
       - ./www/html:/var/www/html
       - ./www/cgi-bin:/usr/lib/cgi-bin
     ports:
-      - 80:80
+      - 8080:80
 
