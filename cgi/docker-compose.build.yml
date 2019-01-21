@@ -6,9 +6,6 @@ services:
     volumes:
       - ./html:/var/www/html
       - ./movabletype:/var/www/html/mt
-    environment:
-      MT_TEST_DBHost: "mysql"
-    working_dir: /var/www/html/mt
     ports:
       - 8080:80
     depends_on:
