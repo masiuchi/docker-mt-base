@@ -2,7 +2,7 @@ version: "3"
 
 services:
   apache:
-    image: masiuchi/docker-mt-base:cgi
+    build: .
     volumes:
       - ./html:/var/www/html
       - ./movabletype:/var/www/html/mt
