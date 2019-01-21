@@ -1,30 +1,24 @@
-version: "2"
-
-networks:
-  back:
+version: "3"
 
 services:
   apache:
     build: .
     volumes:
-      - /etc/localtime:/etc/localtime:ro
-      - ./www/html:/var/www/html
-      - ./www/cgi-bin:/usr/lib/cgi-bin
+      - ./html:/var/www/html
+      - ./movabletype:/var/www/html/mt
+    environment:
+      MT_TEST_DBHost: "mysql"
+    working_dir: /var/www/html/mt
     ports:
       - 8080:80
-    networks:
-      - back
     depends_on:
       - mysql
 
   mysql:
-    image: mysql
+    image: mysql:5.7
     volumes:
-      - /etc/localtime:/etc/localtime:ro
-      - ./data/mysql:/var/lib/mysql
+      - ./mysql:/var/lib/mysql
     environment:
       MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
-      MYSQL_DATABASE: "movabletype"
-    networks:
-      - back
+      MYSQL_DATABASE: "mt"
 
