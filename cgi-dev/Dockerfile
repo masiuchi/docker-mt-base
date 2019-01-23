@@ -11,3 +11,5 @@ RUN apt-get update\
  && cpm install -g\
  && rm -rf .perl-cpm
 
+WORKDIR /var/www/html/mt
+
