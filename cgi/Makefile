@@ -17,6 +17,9 @@ test:
 test_single:
 	docker run --rm -t -v $$PWD/movabletype:/mt -w /mt $(TEST_DOCKER_IMAGE) bash -c "prove $(TEST_FILES)"
 
+test_php:
+	docker run --rm -t -v $$PWD/movabletype:/mt -w /mt $(TEST_DOCKER_IMAGE) bash -c "make test-phpunit && make test-php-lint"
+
 clean: stop
 	docker-compose down -v
 	rm -rf mysql/*
