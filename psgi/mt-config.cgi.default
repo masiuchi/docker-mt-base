@@ -1,0 +1,15 @@
+CGIPath        /mt/
+StaticWebPath  /mt-static/
+StaticFilePath /mt/mt-static/
+
+BaseSitePath   /var/www/html/
+
+PIDFilePath    /var/www/html/mt/mt.pid
+
+ImageDriver    GD
+
+ObjectDriver   DBI::mysql
+DBHost         mysql
+Database       mt
+DBUser         root
+

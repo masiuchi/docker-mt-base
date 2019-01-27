@@ -20,7 +20,7 @@ services:
       - mt
 
   mt:
-    image: masiuchi/docker-mt-base:psgi
+    build: .
     volumes:
       - ./movabletype:/mt
       - ./html:/var/www/html
