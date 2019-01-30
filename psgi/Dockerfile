@@ -10,7 +10,7 @@ WORKDIR /root
 RUN curl -O https://raw.githubusercontent.com/movabletype/movabletype/develop/t/cpanfile\
  && cpanm -nq App::cpm\
  && rm -rf .cpanm\
- && cpm install -g Archive::Zip DBI DBD::SQLite Starman\
+ && cpm install -g Archive::Zip DBI DBD::SQLite Starlet Server::Starter\
  && cpm install -g --without-test\
  && rm -rf .perl-cpm
 
@@ -23,5 +23,4 @@ COPY mt-config.cgi.default /root/
 EXPOSE 3000
 WORKDIR /mt
 ENTRYPOINT ["/root/docker-entrypoint.sh"]
-CMD ["starman", "--workers=2", "--port=3000", "--pid=mt.pid", "mt.psgi"]
-
+CMD ["start_server", "--port=3000", "--pid-file=mt.pid", "--", "plackup", "-s", "Startlet", "--max-workers=2", "mt.psgi"]

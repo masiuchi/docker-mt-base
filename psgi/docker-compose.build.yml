@@ -21,6 +21,7 @@ services:
 
   mt:
     build: .
+    command: bash -c "start_server --port=3000 --pid-file=mt.pid -- plackup -r -R ./plugins -R ./tools -s Starlet --max-workers=2 mt.psgi"
     volumes:
       - ./movabletype:/mt
       - ./html:/var/www/html
