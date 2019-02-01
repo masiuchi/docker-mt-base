@@ -1,15 +1,17 @@
-CGIPath        /mt/
-StaticWebPath  /mt-static/
-StaticFilePath /mt/mt-static/
+CGIPath         /mt/
+StaticWebPath   /mt-static/
+StaticFilePath  /mt/mt-static/
 
-BaseSitePath   /var/www/html/
+BaseSitePath    /var/www/html/
 
-PIDFilePath    /var/www/html/mt/mt.pid
+PIDFilePath     /var/www/html/mt/mt.pid
 
-ImageDriver    GD
+ImageDriver     GD
 
-ObjectDriver   DBI::mysql
-DBHost         mysql
-Database       mt
-DBUser         root
+ObjectDriver    DBI::mysql
+DBHost          mysql
+Database        mt
+DBUser          root
+
+DefaultLanguage ja
 
